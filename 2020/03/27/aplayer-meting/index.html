@@ -1,0 +1,94 @@
+<!-- 页面title--><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>aplayer+emoji+pjax [ Hexo ]</title><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="/css/moods.css"><link rel="stylesheet" href="/css/archive.css"><link rel="stylesheet" href="/css/dracula.css"><meta name="generator" content="Hexo 4.2.0"></head><body><div id="contentleft"><div id="sideFence"><div class="sidebar-toc"><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#🐴在前面"><span class="toc-number">1.</span> <span class="toc-text">🐴在前面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#站点配置"><span class="toc-number">1.1.</span> <span class="toc-text">站点配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-number">1.2.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aplayer-meting-pjax"><span class="toc-number">2.</span> <span class="toc-text">aplayer+meting+pjax</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pjax"><span class="toc-number">2.1.</span> <span class="toc-text">pjax</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#markdown-twemoji"><span class="toc-number">3.</span> <span class="toc-text">markdown+twemoji</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#站点配置-v2"><span class="toc-number">3.1.</span> <span class="toc-text">站点配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#引用"><span class="toc-number">4.</span> <span class="toc-text">引用</span></a></li></ol></div></div><!--input(type='image' id='sideFlip' src='/images/change.png' onclick='change_btn()')--></div><button id="sideBtn">>> </button><div id="content-outer"><article class="article-detail"><h1 class="article-title">aplayer+emoji+pjax</h1><h3 id="🐴在前面"><a class="header-anchor" href="#🐴在前面">¶</a>🐴在前面</h3>
+<p>先记录一下，差点被版本劝退，pjax不知道能不能搬上来<br>
+吸底模式还有点混乱,哎  😥</p>
+<h4 id="站点配置"><a class="header-anchor" href="#站点配置">¶</a>站点配置</h4>
+<pre><code class="language-yaml">aplayer:
+  asset_inject: false # 
+  enable: true 
+  meting: true
+  js: 
+  - https://cdnjs.cloudflare.com/ajax/libs/aplayer/1.10.1/APlayer.min.js
+  - https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js
+  css: 
+  - https://cdn.bootcss.com/aplayer/1.10.1/APlayer.min.css
+  id: 7491214966 #歌单编号
+  server: tencent  #qq音乐
+  type: playlist  
+  fixed: true  #吸底模式
+  order: random
+  preload: none  
+
+</code></pre>
+<h4 id="代码"><a class="header-anchor" href="#代码">¶</a>代码</h4>
+<p>因为打算全局使用，所以我直接贴在layout里</p>
+<pre><code>if theme.aplayer.enable
+  .aplayer(data-id=theme.aplayer.id data-server=theme.aplayer.server data-type=theme.aplayer.type data-fixed=theme.aplayer.fixed data-order=theme.aplayer.order data-preload=theme.aplayer.preload)
+  each item in theme.aplayer.css
+    link(rel='stylesheet', href=item)
+  each item in theme.aplayer.js
+    script(src=item)
+
+</code></pre>
+<h3 id="aplayer-meting-pjax"><a class="header-anchor" href="#aplayer-meting-pjax">¶</a>aplayer+meting+pjax</h3>
+<h4 id="pjax"><a class="header-anchor" href="#pjax">¶</a>pjax</h4>
+<blockquote>
+<p>pjax的工作原理是通过ajax从服务器端获取HTML，在页面中用获取到的HTML替换指定容器元素中的内容。然后使用pushState技术更新浏览器地址栏中的当前地址。</p>
+</blockquote>
+<h3 id="markdown-twemoji"><a class="header-anchor" href="#markdown-twemoji">¶</a>markdown+twemoji</h3>
+<p>指令就下面三条</p>
+<pre><code>npm un hexo-renderer-marked --save
+npm i hexo-renderer-markdown-it --save
+npm install markdown-it-emoji --save
+</code></pre>
+<h4 id="站点配置-v2"><a class="header-anchor" href="#站点配置-v2">¶</a>站点配置</h4>
+<p>直接搬运的，有空再看看<del><a href="https://github.com/hexojs/hexo-renderer-markdown-it/wiki/Advanced-Configuration" target="_blank" rel="noopener">详细配置</a></del><br>
+文档写的有些简略,google到了部分:</p>
+<blockquote>
+<p>All headers above <code>level</code> will then have an id attribute with a slug of their content.<code>level</code> can also be an array of headers levels to apply the anchor, like [2, 3] to have an anchor on only level 2 and 3 headers.</p>
+</blockquote>
+<pre><code># Markdown-it config
+## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki
+markdown:
+  render:
+    html: true
+    xhtmlOut: false
+    breaks: true
+    linkify: true
+    typographer: true
+    quotes: '“”‘’'
+  plugins:
+    - markdown-it-footnote
+    - markdown-it-sup #字体上方标注
+    - markdown-it-sub  
+    - markdown-it-abbr
+    - markdown-it-emoji  #emoji
+  anchors:
+    level: 2
+    collisionSuffix: ''
+    permalink: true
+    permalinkClass: header-anchor
+    permalinkSymbol: ¶
+</code></pre>
+<p>表情查找<a href="https://www.webfx.com/tools/emoji-cheat-sheet/" target="_blank" rel="noopener">emoji</a></p>
+<h3 id="引用"><a class="header-anchor" href="#引用">¶</a>引用</h3>
+<p><a href="https://blog.sonicshield.cn/hexo-markdown-emoji.html" target="_blank" rel="noopener">https://blog.sonicshield.cn/hexo-markdown-emoji.html</a><br>
+<a href="http://bsify.admui.com/jquery-pjax/?id=%e5%8f%82%e6%95%b0" target="_blank" rel="noopener">pjax文档</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></article><div id="paginator"></div><!--如果是文章页面--><!-- - 给toc传入当前页面的内容用于生成目录结构#paginator!= paginator()--></div><div id="bottom-outer"><div id="bottom-inner"><span>Site construction by</span><span> John Doe </span><span>using</span><a href="http://hexo.io" target="_blank" rel="noopener"><span>hexo blog framework</span></a><span>.</span><br><a href="/">Home</a></div></div><script src="/js/jquery.js"></script><script src="/js/moods.js"></script><script src="/js/highlight.pack.js"></script><script src="/js/page.js"></script><script>hljs.initHighlightingOnLoad(); //引用highlight.js后初始化</script><!--音乐播放器--><!--include ./aplayer.pug    --></div><script>$(document).pjax('a[target!=_blank]', '#contentleft', {fragment:'#contentleft', timeout:8000}); </script></body></html>

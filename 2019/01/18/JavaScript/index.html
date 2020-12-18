@@ -1,0 +1,345 @@
+<!-- 页面title--><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>JavaScript 入门 [ Hexo ]</title><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="/css/moods.css"><link rel="stylesheet" href="/css/archive.css"><link rel="stylesheet" href="/css/dracula.css"><meta name="generator" content="Hexo 4.2.0"></head><body><div id="contentleft"><div id="sideFence"><div class="sidebar-toc"><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础"><span class="toc-number">1.</span> <span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量"><span class="toc-number">1.1.</span> <span class="toc-text">变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象"><span class="toc-number">1.2.</span> <span class="toc-text">对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型-prototype"><span class="toc-number">1.3.</span> <span class="toc-text">原型 (prototype)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#原型方式的问题"><span class="toc-number">1.3.1.</span> <span class="toc-text">原型方式的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#构造函数与原型混合"><span class="toc-number">1.3.2.</span> <span class="toc-text">构造函数与原型混合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#动态原型"><span class="toc-number">1.3.3.</span> <span class="toc-text">动态原型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-number">1.4.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数"><span class="toc-number">1.5.</span> <span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#变量提升"><span class="toc-number">1.5.1.</span> <span class="toc-text">变量提升</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数调用与全局变量"><span class="toc-number">1.5.2.</span> <span class="toc-text">参数调用与全局变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#模拟函数重载"><span class="toc-number">1.5.3.</span> <span class="toc-text">模拟函数重载</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包"><span class="toc-number">1.6.</span> <span class="toc-text">闭包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#残枝碎叶"><span class="toc-number">2.</span> <span class="toc-text">残枝碎叶</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#arguments和rest"><span class="toc-number">2.1.</span> <span class="toc-text">arguments和rest</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数名使用括号或！"><span class="toc-number">2.2.</span> <span class="toc-text">函数名使用括号或！</span></a></li></ol></li></ol></div></div><!--input(type='image' id='sideFlip' src='/images/change.png' onclick='change_btn()')--></div><button id="sideBtn">>> </button><div id="content-outer"><article class="article-detail"><h1 class="article-title">JavaScript 入门</h1><h2 id="基础"><a class="header-anchor" href="#基础">¶</a>基础</h2>
+<p>JavaScript数据类型:字符串、数字、布尔、数组、对象、Null、Undefined</p>
+<p>贴一个样例</p>
+<a id="more"></a>
+<pre><code class="language-xml">&lt;!DOCTYPE html&gt; // 指明文件类型
+&lt;html&gt;
+&lt;body&gt;
+&lt;script&gt;  //标签，放在html中表示此段为JavaScript
+function changeImage() {//函数
+element=document.getElementById('myimage')
+if (element.src.match("bulbon"))
+  {
+  element.src="/i/eg_bulboff.gif";
+  }
+else
+  {
+  element.src="/i/eg_bulbon.gif";
+  }
+}
+&lt;/script&gt;
+
+&lt;img id="myimage" onclick="changeImage()" src="/i/eg_bulboff.gif"&gt; 	//其中的id，onclick等为属性配置
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="变量"><a class="header-anchor" href="#变量">¶</a>变量</h3>
+<blockquote>
+<p>JavaScript 变量均为对象。当您声明一个变量时，就创建了一个新的对象。</p>
+</blockquote>
+<p>变量名:以字母开头，也可以是$和_开头，大小写敏感</p>
+<p>变量声明的三种方式:</p>
+<ul>
+<li>const 不可修改，必须初始化</li>
+<li>var 如果您把值赋给尚未声明的变量，该变量将被自动作为<strong>全局变量</strong>声明。</li>
+<li>let 开头必须使用<code>"use strict";</code>  块作用域(只在{}内可用),不存在<a href="#%E5%8F%98%E9%87%8F%E6%8F%90%E5%8D%87">变量提升</a>,同一块作用域不能重复定义</li>
+</ul>
+<pre><code class="language-js">'use strict'; 
+(function() {
+ var varTest = 'test var OK.';
+ let letTest = 'test let OK.'; 
+   { 
+     var varTest = 'varTest changed.';
+     let letTest = 'letTest changed.';
+   }
+ console.log(varTest); //输出"varTest changed."，内部"{}"中声明的varTest变量覆盖外部的letTest声明 
+ console.log(letTest); //输出"test let OK."，内部"{}"中声明的letTest和外部的letTest不是同一个变量 
+ }());
+
+</code></pre>
+<h3 id="对象"><a class="header-anchor" href="#对象">¶</a>对象</h3>
+<blockquote>
+<p>ECMAScript 中只存在一种作用域 - 公用作用域,所有属性和方法默认都是公用的！</p>
+</blockquote>
+<p>创建对象 <code>var person={firstname:"Bill", lastname:"Gates", id:5566};</code><br>
+两种寻址方式：<br>
+<code>name=person.lastname;</code><br>
+<code>name=person["lastname"];</code></p>
+<p>**ECMAScript中本地的对象都是从object 继承过来的，**可以通过对object的原型添加新的方法，使得本地对象都具有此方法</p>
+<pre><code>Object.prototype.valueof=function(){
+  alert(this.valueof());
+}
+var num=15;
+num.valueof();//输出15
+
+</code></pre>
+<h3 id="原型-prototype"><a class="header-anchor" href="#原型-prototype">¶</a>原型 (prototype)</h3>
+<h4 id="原型方式的问题"><a class="header-anchor" href="#原型方式的问题">¶</a>原型方式的问题</h4>
+<pre><code>function Car() {
+}
+
+Car.prototype.color = "blue";
+Car.prototype.doors = 4;
+Car.prototype.mpg = 25;
+Car.prototype.drivers = new Array("Mike","John");
+Car.prototype.showColor = function() {
+  alert(this.color);
+};
+
+var oCar1 = new Car();
+var oCar2 = new Car();
+
+oCar1.drivers.push("Bill");
+
+alert(oCar1.drivers);	//输出 "Mike,John,Bill"
+alert(oCar2.drivers);	//输出 "Mike,John,Bill"
+</code></pre>
+<blockquote>
+<p>上面的代码中，属性 drivers 是指向 Array 对象的指针，<br>
+该数组中包含两个名字 “Mike” 和 “John”。<br>
+由于 drivers 是引用值，Car 的两个实例都指向同一个数组。</p>
+</blockquote>
+<h4 id="构造函数与原型混合"><a class="header-anchor" href="#构造函数与原型混合">¶</a>构造函数与原型混合</h4>
+<pre><code>function Car(sColor,iDoors,iMpg) {
+  this.color = sColor;
+  this.doors = iDoors;
+  this.mpg = iMpg;
+  this.drivers = new Array("Mike","John");
+}
+
+Car.prototype.showColor = function() {
+  alert(this.color);
+};
+
+var oCar1 = new Car("red",4,23);
+var oCar2 = new Car("blue",3,25);
+
+oCar1.drivers.push("Bill");
+
+alert(oCar1.drivers);	//输出 "Mike,John,Bill"
+alert(oCar2.drivers);	//输出 "Mike,John"
+</code></pre>
+<blockquote>
+<p>所有的非函数属性都在构造函数中创建，意味着又能够用构造函数的参数赋予属性默认值了。<br>
+因为只创建 showColor() 函数的一个实例，所以没有内存浪费</p>
+</blockquote>
+<h4 id="动态原型"><a class="header-anchor" href="#动态原型">¶</a>动态原型</h4>
+<pre><code>function Car(sColor,iDoors,iMpg) {
+  this.color = sColor;
+  this.doors = iDoors;
+  this.mpg = iMpg;
+  this.drivers = new Array("Mike","John");
+  
+  if (typeof Car._initialized == "undefined") {  //重点，typeof为变量类型判断
+    Car.prototype.showColor = function() {
+      alert(this.color);
+    };
+	
+    Car._initialized = true;
+  }
+}
+</code></pre>
+<h3 id="数组"><a class="header-anchor" href="#数组">¶</a>数组</h3>
+<pre><code>var cars=new Array("Audi","BMW","Volvo");
+
+var cars=new Array();
+cars[0]="Audi";
+cars[1]="BMW";
+cars[2]="Volvo";
+
+var cars=["Audi","BMW","Volvo"];
+</code></pre>
+<h3 id="函数"><a class="header-anchor" href="#函数">¶</a>函数</h3>
+<p>关键词 function 必须是小写的</p>
+<pre><code>function functionname()
+{
+这里是要执行的代码
+}
+</code></pre>
+<h4 id="变量提升"><a class="header-anchor" href="#变量提升">¶</a>变量提升</h4>
+<p><strong>js会将变量全都提升在函数的顶部</strong></p>
+<pre><code>function example(){
+var x=9+y;
+console.log(x);//结果 :9，undefined
+var y="hello";
+
+}
+</code></pre>
+<p>此时输出因为变量都被"提升"，所以输出y不会判错，但y是在其后被赋值，所以为undefined<br>
+可以理解为</p>
+<pre><code>funciton example(){
+var x=9+y;
+console.log(x);
+y="hello";
+}
+
+</code></pre>
+<h4 id="参数调用与全局变量"><a class="header-anchor" href="#参数调用与全局变量">¶</a>参数调用与全局变量</h4>
+<pre><code>  var color="blue";
+ function changecolor(color){ 
+	console.log(color);//undefined
+	if(color=="blue"){ color="red"; }
+    else{ color="green"; }
+	console.log(color);//green
+ } 
+ changecolor();
+ //changecolor(color);
+ console.log(color);//blue
+</code></pre>
+<p>搜寻参数的机制:</p>
+<blockquote>
+<p>first local then global,如果local没找到则到global中找。<br>
+如果函数parameter中没有定义color，函数中使用的color的值就是从global获取的“blue”；<br>
+如果函数parameter中定义了color，这就相当于新建了一个local变量，在怪兽兄例子中，<br>
+该parameter is initialized, but hasn’t been assigned a value, 此时color的值是undefined</p>
+</blockquote>
+<h4 id="模拟函数重载"><a class="header-anchor" href="#模拟函数重载">¶</a>模拟函数重载</h4>
+<p>由于javascript中并没有函数重载，可以利用<a href="#arguments">arguments</a>进行<strong>模拟函数重载</strong><br>
+通过调用arguments中的length函数去判断参数个数进行”重载“</p>
+<pre><code>function method(){
+	switch(arguments.length){
+	case 0:
+	alert(0);
+	break;
+	
+	case 1:
+	alert(arguments[0]*10);//参数调用,从0开始计数
+	break;
+	
+	case 2:
+	alert(arguments[0]+arguments[1]);
+	break;
+	
+	default:
+	break;
+}
+
+</code></pre>
+<h3 id="闭包"><a class="header-anchor" href="#闭包">¶</a>闭包</h3>
+<blockquote>
+<p>闭包，指的是词法表示包括不被计算的变量的函数，也就是说，函数可以使用函数之外定义的变量。</p>
+</blockquote>
+<h2 id="残枝碎叶"><a class="header-anchor" href="#残枝碎叶">¶</a>残枝碎叶</h2>
+<ul>
+<li>注释方式与c语言相同</li>
+<li>其中src为source的缩写,外部脚本的URL可能的值有：</li>
+</ul>
+<blockquote>
+<p>绝对URL-指向其他站点（src=“<a href="http://www.example.com/example.js" target="_blank" rel="noopener">www.example.com/example.js</a>”<br>
+相对URL-指向站点内的文件（src="/scripts/example.js"</p>
+</blockquote>
+<ul>
+<li>用反斜杠进行<strong>代码换行</strong></li>
+</ul>
+<pre><code>document.write("Hello \
+World!");
+</code></pre>
+<ul>
+<li>如果在文档已完成加载后执行 document.write，整个 HTML 页面将被write覆盖</li>
+</ul>
+<pre><code>&lt;body&gt;
+
+&lt;h1&gt;My First Web Page&lt;/h1&gt;
+
+&lt;p&gt;My First Paragraph.&lt;/p&gt;
+
+&lt;button onclick="myFunction()"&gt;点击这里&lt;/button&gt;
+
+&lt;script&gt;
+function myFunction()
+{
+document.write("糟糕！文档消失了。");
+}
+&lt;/script&gt;
+
+&lt;/body&gt;
+</code></pre>
+<h3 id="arguments和rest"><a class="header-anchor" href="#arguments和rest">¶</a>arguments和rest</h3>
+<ul>
+<li>
+<p>arguments<br>
+类数组对象,用于存储函数的全部参数,<br>
+其中可调用length统计函数的参数个数（从0开始计数</p>
+</li>
+<li>
+<p>rest<br>
+<strong>js中函数允许接受任意个从参数,</strong><br>
+用于获取除了已经定义的参数之外的参数<br>
+rest也有"数组用法": rest[0],rest.length<br>
+rest只能写在最后面，之前还需要用<code>...</code></p>
+</li>
+</ul>
+<pre><code>function foo(a, b, ...rest) {
+    console.log('a = ' + a);
+    console.log('b = ' + b);
+    console.log(rest);
+}
+
+foo(1, 2, 3, 4, 5);
+// 结果:
+// a = 1
+// b = 2
+// Array [ 3, 4, 5 ]
+
+foo(1);
+// 结果:
+// a = 1
+// b = undefined
+// Array []
+
+
+</code></pre>
+<h3 id="函数名使用括号或！"><a class="header-anchor" href="#函数名使用括号或！">¶</a>函数名使用括号或！</h3>
+<blockquote>
+<p>函数是一个对象，函数名是指向这个对象的指针。<br>
+函数名后面加上括号或者！就表示立即调用执行这个函数里面的代码。</p>
+</blockquote>
+<pre><code>(function fun(a,b,c)
+{
+    //…
+}(1,2,3))//其后的1,2,3为函数执行时的参数
+
+!function fun(a,b,c)
+{
+    //…
+}(1,2,3)//同上
+
+</code></pre>
+<hr>
+<ul>
+<li>return 语句<br>
+<strong>javascript 引擎会在行末添加分号</strong></li>
+</ul>
+<pre><code>return ;//自动添加分号
+{ name:'mz' };//语句无法执行
+
+//正确写法
+function method(){
+   return {  //'{'表示语句尚未结束
+	   name:'mz'
+   };
+}
+
+</code></pre>
+<ul>
+<li>“==“与”===”<br>
+<code>==</code>会将等号两边的值转为同一类型在进行比较<br>
+<code>===</code>直接进行比较，不进行类型的转换<br>
+<code>!==</code>同理</li>
+</ul>
+<p>参考文章:<br>
+<a href="http://www.w3school.com.cn/js/index.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/js/index.asp</a><br>
+<a href="https://blog.csdn.net/qq_16339527/article/details/53231725" target="_blank" rel="noopener">https://blog.csdn.net/qq_16339527/article/details/53231725</a><br>
+<a href="https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/00143449926746982f181557d9b423f819e89709feabdb4000" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/00143449926746982f181557d9b423f819e89709feabdb4000</a><br>
+<a href="https://blog.csdn.net/nfer_zhuang/article/details/48781671" target="_blank" rel="noopener">https://blog.csdn.net/nfer_zhuang/article/details/48781671</a><br>
+<a href="https://blog.csdn.net/weixin_30637171/article/details/80744819" target="_blank" rel="noopener">https://blog.csdn.net/weixin_30637171/article/details/80744819</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></article><div id="paginator"></div><!--如果是文章页面--><!-- - 给toc传入当前页面的内容用于生成目录结构#paginator!= paginator()--></div><div id="bottom-outer"><div id="bottom-inner"><span>Site construction by</span><span> John Doe </span><span>using</span><a href="http://hexo.io" target="_blank" rel="noopener"><span>hexo blog framework</span></a><span>.</span><br><a href="/">Home</a></div></div><script src="/js/jquery.js"></script><script src="/js/moods.js"></script><script src="/js/highlight.pack.js"></script><script src="/js/page.js"></script><script>hljs.initHighlightingOnLoad(); //引用highlight.js后初始化</script><!--音乐播放器--><!--include ./aplayer.pug    --></div><script>$(document).pjax('a[target!=_blank]', '#contentleft', {fragment:'#contentleft', timeout:8000}); </script></body></html>

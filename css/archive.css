@@ -1,0 +1,76 @@
+.article-detail {
+  margin: 2rem 35rem 2rem 18rem;
+  width: 50rem;
+  box-shadow: 0 0.1rem 0.2rem 0 rgba(0,0,0,0.2), 0 0.3rem 1rem 0 rgba(0,0,0,0.19);
+  padding: 1rem 2rem 4rem 2rem;
+  background: #fff;
+}
+.article-sort-item__time {
+  margin-right: 1rem;
+  color: #555;
+}
+.article-sort-item__title {
+  text-decoration: none;
+  color: #fbd786;
+}
+.article-sort-item__title:hover {
+  color: #f69;
+}
+.archive .article-sort-item {
+  border-left: 0.2rem solid #fbd786;
+  padding-left: 1rem;
+  padding-top: 1rem;
+  border-bottom: 0.05rem dashed #bbd2c5;
+}
+.archive .article-sort-item:hover {
+  border-left: 0.2rem solid #f69;
+  border-bottom: 0.05rem dashed #000;
+}
+.year {
+  color: #555;
+}
+.sidebar-toc {
+  letter-spacing: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: -1.5rem;
+}
+.toc-child {
+  padding-left: 1rem;
+}
+.toc-link {
+  text-decoration: none;
+}
+.sidebar-toc .toc li {
+  list-style-type: none;
+}
+pre {
+  letter-spacing: 0rem;
+}
+img {
+  width: 30rem;
+  height: 30rem;
+}
+table {
+  font-family: verdana, arial, sans-serif;
+  font-size: 11px;
+  color: #333;
+  border-width: 1px;
+  border-color: #666;
+  border-collapse: collapse;
+}
+table th {
+  border-width: 1px;
+  padding: 8px;
+  border-style: solid;
+  border-color: #666;
+  background-color: #dedede;
+}
+table td {
+  border-width: 1px;
+  padding: 8px;
+  border-style: solid;
+  border-color: #666;
+  background-color: #fff;
+}

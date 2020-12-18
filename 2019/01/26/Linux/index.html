@@ -1,0 +1,325 @@
+<!-- 页面title--><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Linux [ Hexo ]</title><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="/css/moods.css"><link rel="stylesheet" href="/css/archive.css"><link rel="stylesheet" href="/css/dracula.css"><meta name="generator" content="Hexo 4.2.0"></head><body><div id="contentleft"><div id="sideFence"><div class="sidebar-toc"><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu-16-04"><span class="toc-number">1.</span> <span class="toc-text">Ubuntu 16.04</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用快捷键-常用指令"><span class="toc-number">2.</span> <span class="toc-text">常用快捷键&amp;&amp;常用指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#root权限"><span class="toc-number">3.</span> <span class="toc-text">root权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux文件权限"><span class="toc-number">4.</span> <span class="toc-text">Linux文件权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vim常用指令"><span class="toc-number">5.</span> <span class="toc-text">vim常用指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shell"><span class="toc-number">6.</span> <span class="toc-text">shell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#遇到的问题"><span class="toc-number">7.</span> <span class="toc-text">遇到的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#忘记root密码"><span class="toc-number">7.1.</span> <span class="toc-text">忘记root密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#语言更改后"><span class="toc-number">7.2.</span> <span class="toc-text">语言更改后</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令"><span class="toc-number">8.</span> <span class="toc-text">指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#linux与C"><span class="toc-number">9.</span> <span class="toc-text">linux与C</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#进程"><span class="toc-number">9.1.</span> <span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#fork"><span class="toc-number">9.1.1.</span> <span class="toc-text">fork()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#wait"><span class="toc-number">9.1.2.</span> <span class="toc-text">wait()</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#kill-signal"><span class="toc-number">9.1.3.</span> <span class="toc-text">kill(),signal()</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#锁"><span class="toc-number">9.2.</span> <span class="toc-text">锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考资料"><span class="toc-number">10.</span> <span class="toc-text">参考资料</span></a></li></ol></div></div><!--input(type='image' id='sideFlip' src='/images/change.png' onclick='change_btn()')--></div><button id="sideBtn">>> </button><div id="content-outer"><article class="article-detail"><h1 class="article-title">Linux</h1><h3 id="Ubuntu-16-04"><a class="header-anchor" href="#Ubuntu-16-04">¶</a>Ubuntu 16.04</h3>
+<h3 id="常用快捷键-常用指令"><a class="header-anchor" href="#常用快捷键-常用指令">¶</a>常用快捷键&amp;&amp;常用指令</h3>
+<ul>
+<li>调出终端<code>Ctrl+Alt+T</code></li>
+<li>查看命令使用方法<code>man [command]</code>(man为manual)或者用<code>info command</code></li>
+<li>按<b>q</b>退出指令</li>
+<li><code>Ctrl+C</code>中断正在执行的指令</li>
+<li>指令格式<code>command [-options] parameter1 parameter2 ...</code></li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><code>/word</code>搜索word所代表的文件</li>
+<li>关机指令 <code>shutdown -h [time]</code> &nbsp;&nbsp;   <code>shutdown -c</code>取消  &nbsp;  <code>shutdown -r [time]</code>重启</li>
+</ul>
+<h3 id="root权限"><a class="header-anchor" href="#root权限">¶</a>root权限</h3>
+<p>启用root用户</p>
+<pre><code>sudo passwd -u root
+#set a password
+sudo passwd root
+
+#acquire root
+su root
+</code></pre>
+<ul>
+<li>从user转到root:<code>su root</code></li>
+<li>从root转到user:<code>su [userName]</code></li>
+</ul>
+<h3 id="Linux文件权限"><a class="header-anchor" href="#Linux文件权限">¶</a>Linux文件权限</h3>
+<p>文件名为"."开头的为隐藏文档</p>
+<p><img src="/2019/01/26/Linux/ubuntu.png" alt="文件"><br>
+图中第①栏为 文件属性<br>
+第一个字符代表的含义</p>
+<ul>
+<li>“d”————目录</li>
+<li>“-”————文件</li>
+<li>“l”————链接文件</li>
+<li>“b”————可供存储的接口设备</li>
+<li>“c”————串行端口设备,(鼠标,键盘</li>
+</ul>
+<p>之后每三个字符为一组,依次为user,(same)group以及others(different group)的权限<br>
+权限分为 r,w,x  (依次为可读,可写,可执行</p>
+<div class="note warning"><p>在某些情况下,没有可执行权限,(即无法在 当前目录  下执行命令
+即使含有r,w也被视为没有此类权限</p></div>
+example:
+A `drwx--xr-- 1 test testgroup 1024 Feb 21 15:24 testing/`
+B `-rw-r---w- 1 using testgroup 2048 Feb 21 15:54 test.txt`
+在A中因为others没有"x",则"不可读"
+而B中others"可写"
+<p>第②栏表示链接占用的<a href>节点(i-node)</a><br>
+第③栏表示文件拥有者<br>
+第④栏表示拥有者所在群组</p>
+<h3 id="vim常用指令"><a class="header-anchor" href="#vim常用指令">¶</a>vim常用指令</h3>
+<pre><code>#关闭行号
+：set nonumber
+#开启行号
+：set number
+
+v 进入视图模式，选中区域进行复制（yy）粘贴（p/P）
+o 为插入行
+d为删除
+Esc推出
+：wq 写入并推出
+</code></pre>
+<h3 id="shell"><a class="header-anchor" href="#shell">¶</a>shell</h3>
+<p>其中#开头为注释</p>
+<pre><code class="language-bash">#!/bin/bash
+echo "输入1为查询，2为查找，3为退出" #控制台输出
+while read func
+do
+if [ "$func" = "1" ];then
+echo "请输入学号"
+read no
+#关于awk 使用shell变量如下
+cat ./1710010017.bas | awk -v id="$no" '$1==id {printf ("%s\t%s\t%s\t%s\t%s\t%s\t%s\n",$1,$2,$3,$4,$5,$6,$7)}'#学号查询
+elif [ "$func" = "2" ];then
+#汉字替换为分数
+sed -i "s/优/90/g" `grep 优 -rl ./1710010017.bas`
+sed -i "s/良/80/g" `grep 良 -rl ./1710010017.bas`
+sed -i "s/中/70/g" `grep 中 -rl ./1710010017.bas`
+sed -i "s/差/60/g" `grep 差 -rl ./1710010017.bas`
+for((i=2;i&lt;=6;i++));
+do
+res=`awk 'NR=='$i'{printf("%d", $6+$7)}' 1710010017.bas` #计算总分其中 NR 为当前行的序号
+sed -i ''$i's/$/\t&amp;'$res'/g' 1710010017.bas   #增加总分列
+done
+sort -nk 8 -r 1710010017.bas #排序输出
+else break #结束
+fi
+done
+</code></pre>
+<h3 id="遇到的问题"><a class="header-anchor" href="#遇到的问题">¶</a>遇到的问题</h3>
+<h4 id="忘记root密码"><a class="header-anchor" href="#忘记root密码">¶</a>忘记root密码</h4>
+<p>开机长按"Esc"后=&gt;进入Ubuntu高级选项=&gt;选择"recovery mode"=&gt;“root”<br>
+=&gt;输入指令<code>mount -o rw,remount /</code>=&gt;通过<code>ls /home</code>获得账户名称<br>
+=&gt;<code>passwd 账户名称</code>=&gt;重置密码后输入<code>exit</code>回到导航菜单，选择"resume"继续启动系统</p>
+<h4 id="语言更改后"><a class="header-anchor" href="#语言更改后">¶</a>语言更改后</h4>
+<p>因为安装时为中文版,更改语言后重启,无法启动terminal<br>
+<code>Ctrl+Alt+F1</code>进入tty1登录账号<br>
+-&gt;执行命令<code>sudo apt-get install xterm</code><br>
+-&gt;安装过程被打断,根据提示输入指令后<br>
+-&gt;按照<a href="http://forum.ubuntu.org.cn/viewtopic.php?f=48&amp;t=473285" target="_blank" rel="noopener">论坛</a>中的指令执行</p>
+<pre><code>Try to regenerate locales first:
+# locale-gen
+
+And then:
+# localectl set-locale LANG="en_US.UTF-8"
+
+And reboot.
+</code></pre>
+<h3 id="指令"><a class="header-anchor" href="#指令">¶</a>指令</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">指令名称</th>
+<th style="text-align:left">用途</th>
+<th style="text-align:left">格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">chgrp(change group)</td>
+<td style="text-align:left">改变文件所属的组别</td>
+<td style="text-align:left">[groupName] [fileName]</td>
+</tr>
+<tr>
+<td style="text-align:left">chown(change owner)</td>
+<td style="text-align:left">改变文件的拥有者(若将目录下的<br>所有文件更改拥有者,<br>加"-r"参数即可</td>
+<td style="text-align:left">①[userName] [fileName]<br>② -r [userName]:[groupName] [fileName]</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="linux与C"><a class="header-anchor" href="#linux与C">¶</a>linux与C</h3>
+<h4 id="进程"><a class="header-anchor" href="#进程">¶</a>进程</h4>
+<h5 id="fork"><a class="header-anchor" href="#fork">¶</a>fork()</h5>
+<blockquote>
+<p>函数通过系统调用创建一个与原来进程几乎完全相同的进程<br>
+创建新进程成功后，系统中出现两个基本完全相同的进程，这两个进程执行<strong>没有固定的先后顺序</strong>，哪个进程先执行要看系统的进程调度策略。<br>
+fork调用的一个奇妙之处就是它仅仅被调用一次，却能够返回两次，它可能有三种不同的返回值<br>
+1）在父进程中，fork返回新创建子进程的进程ID；<br>
+2）在子进程中，fork返回0；<br>
+3）如果出现错误，fork返回一个负值；<br>
+ps 查看当前进程<br>
+kill -9 [PID]<br>
+-9 表示强迫进程立即停止</p>
+</blockquote>
+<h5 id="wait"><a class="header-anchor" href="#wait">¶</a>wait()</h5>
+<blockquote>
+<p>wait()会暂时停止目前进程的执行, 直到有信号来到或子进程结束. 如果在调用wait()时子进程已经结束, 则wait()会立即返回子进程结束状态值. 子进程的结束状态值会由参数status 返回, 而子进程的进程识别码也会一快返回. 如果不在意结束状态值, 则参数 status 可以设成NULL. 子进程的结束状态值请参考waitpid().</p>
+</blockquote>
+<h5 id="kill-signal"><a class="header-anchor" href="#kill-signal">¶</a>kill(),signal()</h5>
+<p>在linux的c程序中的kill()函数是一个用于向指定进程或进程组发送信号的函数；kill()函数原型为：int kill(int pid,int sig);</p>
+<p>pid是一个进程或一组进程的标识符，sig是要发送的软中断信号，也就是所要发送的信号量</p>
+<p>当pid&gt;0时，将sig信号发送给pid进程；</p>
+<p>当pid==0时，将sig信号发送给与发送进程同组的所有进程；</p>
+<p>当pid==-1时，将sig信号发送给所有用户标识符真正等于发送进程的有效用户标识符的进程</p>
+<p>在来说一下signal()函数，signal函数是一个当接受到指定信号后，转到指定的函数执行，signal()函数原型为：void(*signal(int hum，void(*func)(int)))(int)；看着很可怕，简单举一个例子：</p>
+<p>void alarming();//声明alarming函数</p>
+<p>signal(SIGALRM,alarming);//当执行到这句话的时候，告诉执行该语句的进程，如果其他进程向此进程发送了SIGALRM信号时，就去执行alarming函数；</p>
+<h4 id="锁"><a class="header-anchor" href="#锁">¶</a>锁</h4>
+<p>lseek 主要作用是移动文件读写指针<br>
+获取文件长度</p>
+<pre><code class="language-c++">#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;sys/types.h&gt;
+#include&lt;unistd.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt; 
+void main()
+{
+    int fd=open("test.txt",O_RDWR);
+    if(fd == -1)
+    {
+        perror("open test.txt");
+        exit(-1);
+    }
+    printf("file len:%d \n",lseek(fd,0,SEEK_END));//0到文件尾
+    close(fd);
+} 
+</code></pre>
+<pre><code class="language-cpp">//lab4.cpp   fcntl
+#include&lt;sys/stat.h&gt;
+#include&lt;unistd.h&gt;
+#include&lt;fcntl.h&gt;
+#include&lt;stdio.h&gt;
+int main() {
+int fd; 
+struct flock lock;
+char tmp[15];
+if((fd=open("testkey",O_RDWR))==-1)return -1; 
+lock.l_type=F_WRLCK;
+ lock.l_whence=SEEK_SET;
+ lock.l_start=0;
+ lock.l_len=10;
+ fcntl(fd,F_SETLKW,&amp;lock);
+ printf("parentlock..\n");
+ int val=fork();
+ printf("fork() is  %d\n",(int)val);//查看fork返回值
+ if(val==0) {
+ lock.l_type=F_WRLCK;
+ lock.l_whence=SEEK_SET;
+ lock.l_start=0;
+ lock.l_len=10;
+ printf("child waiting..\n");//查看子进程是否在等待父进程解锁
+ fcntl(fd,F_SETLKW,&amp;lock);//条件符合时锁定文件指定区域,否则等待条件出现
+ printf("childlocked.\n");
+ read(fd,tmp,10);
+ lseek(fd,0,SEEK_SET);//将文件偏移指针移到文件头部
+ write(fd,tmp+5,5);//tmp中内容写入文件
+ write(fd,tmp,5);
+lock.l_type=F_UNLCK;//解锁
+ fcntl(fd,F_SETLK,&amp;lock);
+ printf("childunlocked.\n");
+return 0; }
+lseek(fd,0,SEEK_SET);
+read(fd,tmp,10);
+lseek(fd,0,SEEK_SET);
+lock.l_type=F_UNLCK;
+sleep(2);
+fcntl(fd,F_SETLK,&amp;lock);
+printf("parentunlock...\n");
+return 0;
+}
+
+/*
+parentlock..
+fork() is  3736
+fork() is  0
+child waiting..
+parentunlock...
+childlocked.
+childunlocked.
+*/
+
+</code></pre>
+<pre><code class="language-cpp">//lab4-1.cpp lockf
+#include&lt;sys/stat.h&gt;
+#include&lt;unistd.h&gt;
+#include&lt;fcntl.h&gt;
+#include&lt;stdio.h&gt;
+#include&lt;sys/file.h&gt;
+int main(){
+
+int fd;
+char tmp[15]={};
+if((fd=open("testkey",O_RDWR))==-1)return-1;
+ lseek(fd,0,SEEK_SET);
+ lockf(fd,F_LOCK,10);
+ printf("parentlock..\n");
+ int val=fork();
+ printf("fork() is %d\n",(int)val);
+ if(val==0) {
+ lseek(fd,0,SEEK_SET);
+ printf("child is waiting..\n");
+ lockf(fd,F_LOCK,10);
+ printf("childlocked.\n");
+ read(fd,tmp,10);
+ sleep(5);//休眠
+ lseek(fd,0,SEEK_SET);
+ write(fd,tmp+5,5);
+ write(fd,tmp,5);
+ lseek(fd,0,SEEK_SET);
+ lockf(fd,F_ULOCK,10);
+ printf("childunlocked.\n");
+ return 0;
+ }
+ lseek(fd,0,SEEK_SET);
+ read(fd,tmp,10);
+ lseek(fd,0,SEEK_SET);
+ lockf(fd,F_ULOCK,10);
+ printf("%s\n",tmp);
+ printf("parentunlock...\n");
+ return 0;
+}
+
+/*
+y@y-virtual-machine:~$ cat testkey
+0123456789
+56789ABCDE
+y@y-virtual-machine:~$ gcc -o lab4-1 lab4-1.cpp
+y@y-virtual-machine:~$ ./lab4-1
+parentlock..
+fork() is 4329
+0123456789
+parentunlock...
+fork() is 0
+child is excuting..
+childlocked.
+y@y-virtual-machine:~$ childunlocked.
+cat testkey
+5678901234
+56789ABCDE
+*/
+
+</code></pre>
+<h3 id="参考资料"><a class="header-anchor" href="#参考资料">¶</a>参考资料</h3>
+<p><a href="http://linux.vbird.org/new_linux.php" target="_blank" rel="noopener">《鸟哥的Linux私房菜》</a><br>
+<a href="https://blog.csdn.net/u010395144/article/details/52794947" target="_blank" rel="noopener">https://blog.csdn.net/u010395144/article/details/52794947</a><br>
+<a href="https://blog.csdn.net/huangshanchun/article/details/46731401" target="_blank" rel="noopener">lseek</a><br>
+<a href="https://blog.csdn.net/jason314/article/details/5640969" target="_blank" rel="noopener">fork</a><br>
+<a href="https://blog.csdn.net/qq_42152681/article/details/90261295" target="_blank" rel="noopener">signal,kill</a><br>
+<a href="http://c.biancheng.net/cpp/html/289.html" target="_blank" rel="noopener">wait</a></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></article><div id="paginator"></div><!--如果是文章页面--><!-- - 给toc传入当前页面的内容用于生成目录结构#paginator!= paginator()--></div><div id="bottom-outer"><div id="bottom-inner"><span>Site construction by</span><span> John Doe </span><span>using</span><a href="http://hexo.io" target="_blank" rel="noopener"><span>hexo blog framework</span></a><span>.</span><br><a href="/">Home</a></div></div><script src="/js/jquery.js"></script><script src="/js/moods.js"></script><script src="/js/highlight.pack.js"></script><script src="/js/page.js"></script><script>hljs.initHighlightingOnLoad(); //引用highlight.js后初始化</script><!--音乐播放器--><!--include ./aplayer.pug    --></div><script>$(document).pjax('a[target!=_blank]', '#contentleft', {fragment:'#contentleft', timeout:8000}); </script></body></html>

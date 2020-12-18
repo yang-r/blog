@@ -1,0 +1,27 @@
+<!-- 页面title--><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>bbs [ Hexo ]</title><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="/css/moods.css"><link rel="stylesheet" href="/css/archive.css"><link rel="stylesheet" href="/css/dracula.css"><meta name="generator" content="Hexo 4.2.0"></head><body><div id="contentleft"><div id="sideFence"><div class="sidebar-toc"><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#🐴在前面"><span class="toc-number">1.</span> <span class="toc-text">🐴在前面</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#登录功能"><span class="toc-number">1.1.</span> <span class="toc-text">登录功能</span></a></li></ol></li></ol></div></div><!--input(type='image' id='sideFlip' src='/images/change.png' onclick='change_btn()')--></div><button id="sideBtn">>> </button><div id="content-outer"><article class="article-detail"><h1 class="article-title">bbs</h1><h3 id="🐴在前面"><a class="header-anchor" href="#🐴在前面">¶</a>🐴在前面</h3>
+<p>bbs主要是希望能通过tag来连接起来，换句话说也可以是key words 来贯穿整个项目。<br>
+关于详细的配置什么的，后期可能补上。<br>
+现在的记录就当做手册吧<br>
+SSM</p>
+<h4 id="登录功能"><a class="header-anchor" href="#登录功能">¶</a>登录功能</h4>
+<p>后台流程TalkerController 获取到前台的输入<br>
+后台controller 与 servlet  前台页面 映射配置</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></article><div id="paginator"></div><!--如果是文章页面--><!-- - 给toc传入当前页面的内容用于生成目录结构#paginator!= paginator()--></div><div id="bottom-outer"><div id="bottom-inner"><span>Site construction by</span><span> John Doe </span><span>using</span><a href="http://hexo.io" target="_blank" rel="noopener"><span>hexo blog framework</span></a><span>.</span><br><a href="/">Home</a></div></div><script src="/js/jquery.js"></script><script src="/js/moods.js"></script><script src="/js/highlight.pack.js"></script><script src="/js/page.js"></script><script>hljs.initHighlightingOnLoad(); //引用highlight.js后初始化</script><!--音乐播放器--><!--include ./aplayer.pug    --></div><script>$(document).pjax('a[target!=_blank]', '#contentleft', {fragment:'#contentleft', timeout:8000}); </script></body></html>

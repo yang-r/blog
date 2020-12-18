@@ -1,0 +1,466 @@
+<!-- 页面title--><!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Data Structure [ Hexo ]</title><link rel="stylesheet" href="https://fonts.loli.net/css?family=Noto+Serif+SC&amp;display=swap"><link rel="stylesheet" href="/css/moods.css"><link rel="stylesheet" href="/css/archive.css"><link rel="stylesheet" href="/css/dracula.css"><meta name="generator" content="Hexo 4.2.0"></head><body><div id="contentleft"><div id="sideFence"><div class="sidebar-toc"><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#线性表"><span class="toc-number">1.</span> <span class="toc-text">线性表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#链表"><span class="toc-number">1.1.</span> <span class="toc-text">链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#栈"><span class="toc-number">1.2.</span> <span class="toc-text">栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#队列"><span class="toc-number">1.3.</span> <span class="toc-text">队列</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#循环队列"><span class="toc-number">1.3.1.</span> <span class="toc-text">循环队列</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#队列应用"><span class="toc-number">1.3.2.</span> <span class="toc-text">队列应用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#优先队列"><span class="toc-number">1.3.3.</span> <span class="toc-text">优先队列</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串匹配"><span class="toc-number">1.4.</span> <span class="toc-text">字符串匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#KMP"><span class="toc-number">1.4.1.</span> <span class="toc-text">KMP</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#树"><span class="toc-number">2.</span> <span class="toc-text">树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图"><span class="toc-number">3.</span> <span class="toc-text">图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#最短路"><span class="toc-number">3.1.</span> <span class="toc-text">最短路</span></a></li></ol></li></ol></div></div><!--input(type='image' id='sideFlip' src='/images/change.png' onclick='change_btn()')--></div><button id="sideBtn">>> </button><div id="content-outer"><article class="article-detail"><h1 class="article-title">Data Structure</h1><h3 id="线性表"><a class="header-anchor" href="#线性表">¶</a>线性表</h3>
+<h4 id="链表"><a class="header-anchor" href="#链表">¶</a>链表</h4>
+<p>链表中对于指针的使用,修改的是其所指向的值的更改,更改后要移动指针</p>
+<pre><code>//waiting找到好的题目再更
+
+</code></pre>
+<h4 id="栈"><a class="header-anchor" href="#栈">¶</a>栈</h4>
+<ul>
+<li>求合法出栈序列(卡特兰数)<br>
+设序列长度为n<br>
+则合法序列中 进栈次数为n,出栈次数为n<br>
+但是在C(n,2n)中还应该使得出栈操作前栈不为空，即当前出栈次数&lt;=入栈次数<br>
+设出栈为-1，入栈为+1<br>
+通过映射不合法序列使得序列变为n-1个-1,n+1个+1</li>
+</ul>
+<p>映射规则为当前前缀和为-1时,将当前位置起的数字一一取反</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">序列①</th>
+<th style="text-align:center">-1</th>
+<th style="text-align:center">-1</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">序列②</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>那么合法序列则为</p>
+<pre><code>C(n,2n)-C(n-1,2n)=C(n,2n)/(n+1)
+</code></pre>
+<ul>
+<li>中序表达式转为后序表达式<br>
+遇到字母直接输出<br>
+入栈条件：遇到运算符若栈为空或栈顶运算符优先级小于当前运算符<br>
+出栈条件：若当前运算符优先级小于栈顶则栈顶出栈直到满足入栈条件<br>
+若遇见括号’(‘则直接入栈,当遇到’)‘时将’(‘到’)'之间的符号依次出栈(包括括号)</li>
+</ul>
+<a id="more"></a>
+<p>将四则运算(中序)式子转为后序,在计算时对于括号嵌套能较好处理</p>
+<div class="note primary"><p> 在中序转为后序时,符号的优先级判断: 
+乘除号优先级最高则直接入栈,加减号则需要将栈排空或在遇到'('时再入栈
+这里的'('相当于一个新的栈底（因为要将括号内式子先计算）
+</p></div>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+#include&lt;stack&gt;
+using namespace std;
+
+stack&lt;char&gt;ope;
+stack&lt;double&gt;val;//数值类型
+void PostOrder(char s[], char t[]) {
+	int j = 0, len = strlen(s);
+	for (int i = 0; i&lt;len; i++) {
+		if (s[i] &gt;= '0'&amp;&amp;s[i] &lt;= '9') {
+			while (s[i] &gt;= '0'&amp;&amp;s[i] &lt;= '9') {
+				t[j++] = s[i++];
+			}
+			i -= 1;
+			t[j++] = '#';
+		}
+		else if (s[i] == '(') {
+			ope.push(s[i]);
+		}
+		else if (s[i] == ')') {
+			char k = ope.top();
+			while (k != '(') {
+				t[j++] = k;
+				ope.pop();
+				k = ope.top();
+			}
+			ope.pop();
+		}
+		else if (s[i] == '+' || s[i] == '-') {
+			while (!ope.empty() &amp;&amp; ope.top() != '(') {//此时已经对优先级进行比较
+				t[j++] = ope.top();
+				ope.pop();
+			}
+			if (s[i] == '+')ope.push('+');
+			else ope.push('-');
+		}
+		else if (s[i] == '*')ope.push('*');
+		else if (s[i] == '/')ope.push('/');
+	}
+
+	while (!ope.empty()) {
+		t[j++] = ope.top();
+		ope.pop();
+	}
+	t[j] = '\0';
+}
+void get_num(char t[], int&amp; i) {
+	double num = 0;
+	while (t[i] &gt;= '0'&amp;&amp;t[i] &lt;= '9') {
+		num *= 10;
+		num += t[i] - '0';
+		i++;
+	}
+	i -= 1;
+	val.push(num);
+}
+void cal(char t[], int &amp;i) {
+	double num1 = val.top();
+	val.pop();
+
+	double num2 = val.top();
+	val.pop();
+
+	if (t[i] == '+') {
+		num2 += num1;
+	}
+	else if (t[i] == '-') {
+		num2 -= num1;
+	}
+	else if (t[i] == '*') {
+		num2 *= num1;
+	}
+	else if (t[i] == '/') {
+		num2 /= num1;
+	}
+	val.push(num2);
+}
+
+void result(char t[]) {
+	int len = strlen(t);
+	for (int i = 0; i&lt;len; i++) {
+		if (t[i] &gt;= '0'&amp;&amp;t[i] &lt;= '9') {
+			get_num(t, i);
+		}
+		else if (t[i] == '#')continue;
+		else {
+			cal(t, i);
+		}
+	}
+}
+int main() {
+	char s[100] = "9+(3-2*(11-5/10)*2)+3+10/2";
+	char t[100];
+	PostOrder(s, t);
+	cout &lt;&lt; "后缀： " &lt;&lt; t &lt;&lt; endl;// 9#3#2#3#5#-2#**-3#*+10#2#/+   '#'用来间隔数字 
+	result(t);
+	cout &lt;&lt; val.top();
+	val.pop();
+	return 0;
+}
+</code></pre>
+<h4 id="队列"><a class="header-anchor" href="#队列">¶</a>队列</h4>
+<h5 id="循环队列"><a class="header-anchor" href="#循环队列">¶</a>循环队列</h5>
+<p>插入时（rear+1）%LEN<br>
+删除时（front+1）%LEN<br>
+循环队列的插入和删除都是+1<br>
+计算长度当前LEN:(rear-front+LEN)%LEN</p>
+<h5 id="队列应用"><a class="header-anchor" href="#队列应用">¶</a>队列应用</h5>
+<p>对于队列简易的封装以及对于模板类简单的使用</p>
+<pre><code>/*  左上角开始向右下搜索
+aaaaaaaaaa
+aaaaaaaaaa
+aa########
+aaaaaaaaaa
+aaaaaaaa*a
+aaaaaaaaaa
+aaaaaaaaaa
+aaaaaaaaaa
+aaaaaaaaaa
+aaaaaaaaaa
+*/
+
+
+#include&lt;iostream&gt;
+#include&lt;cstdio&gt;
+#define n 10 
+
+using namespace std;
+
+int vis[n][n] = { 0 };
+char map[n][n];
+
+template&lt;typename ElemType&gt;
+struct queue {
+	int capacity;
+	int head;
+	int tail;
+	ElemType* items;
+
+	queue(int c = 100) {
+		capacity = c;
+		head = 0;
+		tail = 0;
+		items = new ElemType[c];
+	}
+	void push(ElemType elem) {
+		items[tail] = elem;
+		tail++;
+	}
+	bool empty() {
+		if (!tail)return true;
+		return false;
+	}
+	void  pop() {
+		for (int i = head; i&lt;tail; i++)
+			items[i] = items[i + 1];
+		tail--;
+	}
+	ElemType front() {
+		return items[head];
+	}
+};
+
+
+struct node {
+	int x, y;
+	int cnt = 0;
+};
+queue&lt;node&gt; q;
+
+int func(node b) {
+	int xx[4] = { 0,1 };
+	int yy[4] = { 1,0 };
+	int flag = 0;
+	node a;
+
+	q.push(b);
+
+	while (!q.empty() &amp;&amp; !flag) {
+		a = q.front();
+		q.pop();
+		int x1, y1;
+		for (int i = 0; i &lt; 2; i++) {
+			x1 = a.x + xx[i], y1 = a.y + yy[i];
+			if (map[x1][y1] == '*') {
+				a.cnt++;
+				flag = 1;
+				break;
+			}
+			if (!vis[x1][y1] &amp;&amp; x1&lt;10 &amp;&amp; y1&lt;10 &amp;&amp; map[x1][y1] != '#') {
+				vis[x1][y1] = 1;
+				q.push(node{ x1,y1,a.cnt + 1 });
+			}
+		}
+	}
+	if (flag)
+		return a.cnt;
+	else return -1;
+}
+
+
+int main() {
+	memset(map, 'a', sizeof(map));
+	map[4][8] = { '*' };
+	for (int i = 2; i &lt; 3; i++) {
+		for (int j = 2; j &lt; 10; j++)
+			map[i][j] = '#';
+	}
+	for (int i = 0; i &lt; n; i++) {
+		for (int j = 0; j &lt; n; j++) {
+			cout &lt;&lt; map[i][j];
+			
+		}
+		cout &lt;&lt; endl;
+	}
+	node b;
+	b.x = b.y = b.cnt = 0;
+	int cnt = func(b);
+	if (cnt == -1)cout &lt;&lt; "没有联通路径";
+	else cout &lt;&lt; "存在路径长度为 num:" &lt;&lt; cnt &lt;&lt; endl;
+	return 0;
+}
+</code></pre>
+<h5 id="优先队列"><a class="header-anchor" href="#优先队列">¶</a>优先队列</h5>
+<pre><code>
+//waiting
+
+</code></pre>
+<h4 id="字符串匹配"><a class="header-anchor" href="#字符串匹配">¶</a>字符串匹配</h4>
+<h5 id="KMP"><a class="header-anchor" href="#KMP">¶</a>KMP</h5>
+<p>KMP的匹配规则与暴力不同之处：<br>
+在匹配错误时暴力会直接返回到起始处的后一位字符在进行匹配<br>
+kmp则可以避免不必要的"重蹈覆辙"</p>
+<p>其中next数组就是kmp的核心,简要理解为最长相同前后缀 子串</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字符串</th>
+<th style="text-align:center">a</th>
+<th style="text-align:center">b</th>
+<th style="text-align:center">c</th>
+<th style="text-align:center">a</th>
+<th style="text-align:center">b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">next数组</td>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">2</td>
+</tr>
+</tbody>
+</table>
+<p>其中next[0]取-1用以区别头结点和其他节点,避免计数错误</p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+
+#define maxn 100010 
+
+using namespace std;
+
+//注意题目数据类型，不一定是字符串！！！ 
+void cal_next(char*str,int nex[]) {           //算出str的前缀和后缀相同的长度 存入next中 
+	nex[0] = -1;
+	int i = 0, j = -1;
+
+	while (i &lt; strlen(p))
+	{
+		if (j == -1 || p[i] == p[j])
+		{
+			++i;
+			++j;
+			nex[i] = j;
+		}	
+		else
+			j = nex[j];
+	}
+
+}
+
+void kmp(char*str, char*ptr){
+	int next[maxn];
+	cal_next(ptr,next);
+		int slen = strlen(str);
+		int plen = strlen(ptr);
+		int k = -1;
+		int mark = 0;
+		for (int q = 0; q &lt; slen; q++) {
+			while (k &gt; -1 &amp;&amp; ptr[k + 1] != str[q]) 
+				k = next[k];       //字符串当前位置不相同且有相同匹配的时候，回溯 
+			
+			if (ptr[k + 1]==str[q]) 
+				k++;     //相同则继续比较 
+			if (k== plen - 1) {
+				printf("%d\n", q - k + 1);     // 位置的输出，从1开始 
+				  k=next[k];    //得出匹配字符串，位置回到含有相同前缀的点开始比较 
+			}
+		}
+		//  输出子串的next 
+		for (int i = 0; i &lt;strlen(ptr); i++) 
+			printf("%d ", next[i] + 1);
+		printf("\n");	
+}
+
+int main() {
+	char a[maxn],b[maxn];
+	gets_s(a);
+	gets_s(b);
+	kmp(a,b);
+	return 0;
+	}
+</code></pre>
+<h3 id="树"><a class="header-anchor" href="#树">¶</a>树</h3>
+<p>*由前序序列和中序序列求后序<br>
+①由先序可知第一个字母为跟节点，<br>
+②再看其在中序中的位置，以当前字母为中心，左边则为左子树所含字母，右边则为右子树所含字母<br>
+③重复上述操作直到结束（先序可确定父节点）<br>
+<img src="/2020/02/16/Data-Structure/tree.jpg" alt="例题"></p>
+<pre><code>
+//waiting
+
+</code></pre>
+<h3 id="图"><a class="header-anchor" href="#图">¶</a>图</h3>
+<h4 id="最短路"><a class="header-anchor" href="#最短路">¶</a>最短路</h4>
+<pre><code class="language-cpp">void minPath(ALGraph G, int start, int dis[], int path[][100]) {
+	int i, j, mindist, k, t;
+	Road *now;
+
+	for (int i = 0; i &lt; 10; i++) {
+		for (int j = 0; j &lt; 10; j++) {
+			path[i][j] = -1;
+		}
+	}
+
+	for (i = 0; i &lt;G.vexnum; i++) {    //初始化最短路径数组dis,和标记此顶点是否已经找到最短路径的path[i][0],等于0表示没有找到,等于1表示找到.
+		dis[i] = INT_MAX;
+		path[i][0] = 0;
+	}
+	now = G.vertices[start].firstarc;//起点的邻接表
+	while (now) {                                  //保存起点到和其相邻点的路径.
+		dis[now-&gt;spotId] = now-&gt;cost;
+		path[now-&gt;spotId][1] = start;
+		path[now-&gt;spotId][2] = now-&gt;spotId;
+		path[now-&gt;spotId][3] = -1;
+		now = now-&gt;nextarc;
+	}
+
+	path[start][0] = 1;               //源点标记为为1，此顶点以后不会再用到
+	cout &lt;&lt; endl;
+	for (int i = 0; i &lt; G.vexnum; i++) {
+		for (int j = 0; j &lt; G.vexnum; j++) {
+			cout &lt;&lt; path[i][j] &lt;&lt; " ";
+		}
+		cout &lt;&lt; endl;
+	}
+	cout &lt;&lt; "path [] []" &lt;&lt; endl;
+	for (i = 1; i &lt;G.vexnum; i++) {                //选择最最短的路径
+		mindist = INT_MAX;//从已选集合中选择未选集合 相邻的最短路径
+		for (j = 0; j &lt; G.vexnum; j++) {
+			if (!path[j][0] &amp;&amp; dis[j] &lt; mindist) { //所选集合点到当前点的
+				k = j;								
+				mindist = dis[j];
+			}
+		}
+		if (mindist == INT_MAX) {         //如果没有找到最短的路径，则说明从此源点不能到任何其他顶点，直接返回.
+			return;
+		}
+		path[k][0] = 1;                  //标记找到最小路径的顶点，此顶点以后不会再用到.
+		now = G.vertices[k].firstarc; // 假设将所选点的邻接表中的点加入集合
+		while (now) {
+			if (!path[now-&gt;spotId][0] &amp;&amp; dis[now-&gt;spotId] &gt; dis[k] + now-&gt;cost) {//当前点选择后路径小于之前的（松弛操作）
+
+				dis[now-&gt;spotId] = dis[k] + now-&gt;cost;//更新
+				t = 1;
+				while (path[k][t] != -1)      //记录最新的路径
+				{
+
+					path[now-&gt;spotId][t] = path[k][t];//将已选点集合的最短路径复制到最新的点的path中
+					t++;
+				}
+
+				path[now-&gt;spotId][t] = now-&gt;spotId; //记录终点
+				path[now-&gt;spotId][t + 1] = -1;                       //path[i][t+1]之前的都是最短路径所要经过的顶点，从t+1这里停止,作为最后输出路径的判断条件
+			}
+			now = now-&gt;nextarc;
+		}
+	}
+}
+</code></pre>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></article><div id="paginator"></div><!--如果是文章页面--><!-- - 给toc传入当前页面的内容用于生成目录结构#paginator!= paginator()--></div><div id="bottom-outer"><div id="bottom-inner"><span>Site construction by</span><span> John Doe </span><span>using</span><a href="http://hexo.io" target="_blank" rel="noopener"><span>hexo blog framework</span></a><span>.</span><br><a href="/">Home</a></div></div><script src="/js/jquery.js"></script><script src="/js/moods.js"></script><script src="/js/highlight.pack.js"></script><script src="/js/page.js"></script><script>hljs.initHighlightingOnLoad(); //引用highlight.js后初始化</script><!--音乐播放器--><!--include ./aplayer.pug    --></div><script>$(document).pjax('a[target!=_blank]', '#contentleft', {fragment:'#contentleft', timeout:8000}); </script></body></html>
