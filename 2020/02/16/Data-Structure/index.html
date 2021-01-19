@@ -463,4 +463,11 @@ int main() {
             });
             document.body.appendChild(img);
           });
-      </script></article><div id="paginator"></div><!--如果是文章页面--><!-- - 给toc传入当前页面的内容用于生成目录结构#paginator!= paginator()--></div><div id="bottom-outer"><div id="bottom-inner"><span>Site construction by</span><span> John Doe </span><span>using</span><a href="http://hexo.io" target="_blank" rel="noopener"><span>hexo blog framework</span></a><span>.</span><br><a href="/">Home</a></div></div><script src="/js/jquery.js"></script><script src="/js/moods.js"></script><script src="/js/highlight.pack.js"></script><script src="/js/page.js"></script><script>hljs.initHighlightingOnLoad(); //引用highlight.js后初始化</script><!--音乐播放器--><!--include ./aplayer.pug    --></div><script>$(document).pjax('a[target!=_blank]', '#contentleft', {fragment:'#contentleft', timeout:8000}); </script></body></html>
+      </script></article><div id="paginator"></div><!--如果是文章页面--><!-- - 给toc传入当前页面的内容用于生成目录结构#paginator!= paginator()--></div><div id="bottom-outer"><div id="bottom-inner"><span>Site construction by</span><span> John Doe </span><span>using</span><a href="http://hexo.io" target="_blank" rel="noopener"><span>hexo blog framework</span></a><span>.</span><br><a href="/">Home</a></div></div><script src="/js/jquery.js"></script><script src="/js/moods.js"></script><script src="/js/highlight.pack.js"></script><script src="/js/page.js"></script><script src="/js/clipboard.min.js"></script><script>var clipboard = new ClipboardJS('.copy_btn');
+clipboard.on('success', function(e) {
+    console.log(e);
+});
+clipboard.on('error', function(e) {
+    console.log(e);
+});
+hljs.initHighlightingOnLoad(); //引用highlight.js后初始化</script><!--音乐播放器--><!--include ./aplayer.pug    --></div><script>$(document).pjax('a[target!=_blank]', '#contentleft', {fragment:'#contentleft', timeout:8000}); </script></body></html>
